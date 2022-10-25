@@ -90,9 +90,9 @@ namespace clubmembership.Repository
                 }
             }
 
-         public void DeleteAnnouncement(AnnouncementModel model)
+         public void DeleteAnnouncement(Guid id)
             {
-                var dbObject = _DbContext.Announcemments.FirstOrDefault(x => x.Idannouncemment == model.Idannouncemment);
+                var dbObject = _DbContext.Announcemments.FirstOrDefault(x => x.Idannouncemment == id);
                 if (dbObject != null)
                 {
                     _DbContext.Announcemments.Remove(dbObject);

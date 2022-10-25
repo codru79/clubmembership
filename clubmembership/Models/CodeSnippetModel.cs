@@ -1,4 +1,5 @@
 ﻿using clubmembership.Models.DBObjects;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace clubmembership.Models
@@ -13,10 +14,11 @@ namespace clubmembership.Models
         public Guid? IdsnippetPreviousVersions { get; set; }
 
         //decorators for datetime type fields 
-        [DisplayFormat(DataFormatString = "0:MM/dd/yyyy")]
-        [DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:d}")]
+        //[DataType(DataType.Date)]
         public DateTime DateTimeAdded { get; set; }
         public bool IsPublished { get; set; }
+
 
     }
 }

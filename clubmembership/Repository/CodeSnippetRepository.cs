@@ -1,6 +1,7 @@
 ﻿using clubmembership.Data;
 using clubmembership.Models;
 using clubmembership.Models.DBObjects;
+using System.Linq;
 
 namespace clubmembership.Repository
 {
@@ -8,9 +9,12 @@ namespace clubmembership.Repository
     {
         private readonly ApplicationDbContext _DBContext;
 
+        
+
         public CodeSnippetRepository()
         { 
-        _DBContext = new ApplicationDbContext();
+           
+            _DBContext = new ApplicationDbContext();
         }
 
         public CodeSnippetRepository(ApplicationDbContext dBContext)
@@ -28,7 +32,7 @@ namespace clubmembership.Repository
                 model.ContentCode=dbobject.ContentCode;
                 model.Idmember=dbobject.Idmember;
                 model.Revision = dbobject.Revision;
-                model.IdsnippetPreviousVersions=dbobject?.IdsnippetPreviousVersions;
+                model.IdsnippetPreviousVersions=dbobject.IdsnippetPreviousVersions;
                 model.DateTimeAdded = dbobject.DateTimeAdded;
                 model.IsPublished = dbobject.IsPublished;
             }
@@ -67,9 +71,17 @@ namespace clubmembership.Repository
             return MapDBObjectToModel(_DBContext.CodeSnippets.FirstOrDefault(x => x.IdcodeSnippet == id));
         }
 
+        public CodeSnippetModel GetLatestCodeSnippet()
+        {
+
+           return MapDBObjectToModel(_DBContext.CodeSnippets.OrderByDescending(x => x.DateTimeAdded).FirstOrDefault());
+
+        }
+
         public void InsertCodeSnippet(CodeSnippetModel model)
         { 
             model.IdcodeSnippet= Guid.NewGuid();
+            model.DateTimeAdded = DateTime.Now;
             _DBContext.CodeSnippets.Add(MapModelToDBObject(model));
             _DBContext.SaveChanges();
 
@@ -91,11 +103,13 @@ namespace clubmembership.Repository
             }
         }
 
-        public void DeleteCodeSnippet(CodeSnippetModel model)
+        public void DeleteCodeSnippet(Guid id)
         {
-            var dbobject = _DBContext.CodeSnippets.FirstOrDefault(x => x.IdcodeSnippet == model.IdcodeSnippet);
+            var dbobject = _DBContext.CodeSnippets.FirstOrDefault(x => x.IdcodeSnippet == id);
             _DBContext.CodeSnippets.Remove(dbobject);
             _DBContext.SaveChanges();
         }
+
+
     }
 }

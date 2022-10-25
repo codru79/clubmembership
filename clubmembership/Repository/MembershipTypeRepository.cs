@@ -86,8 +86,14 @@ namespace clubmembership.Repository
         public void DeleteMembershipType(MembershipTypeModel model)
         {
             var dbobject = _DBContext.MembershipTypes.FirstOrDefault(x => x.IdmembershipType == model.IdmembershipType);
+           //cascade delete
             if (dbobject != null)
             {
+                var memberships=_DBContext.Memberships.Where(x => x.IdmembershipType == dbobject.IdmembershipType);
+                foreach (var membership in memberships)
+                {
+                    _DBContext.Memberships.Remove(membership);
+                }
                 _DBContext.MembershipTypes.Remove(dbobject);
                 _DBContext.SaveChanges();
             }
