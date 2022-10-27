@@ -1,4 +1,4 @@
-﻿@model IEnumerable<clubmembership.Models.CodeSnippetModel>
+﻿@model IEnumerable<clubmembership.ViewModels.CodeSnippetViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,6 +13,7 @@
 <table class="table">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -20,13 +21,10 @@
                 @Html.DisplayNameFor(model => model.ContentCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Idmember)
+                @Html.DisplayNameFor(model => model.MemberName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Revision)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdsnippetPreviousVersions)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateTimeAdded)
@@ -40,6 +38,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -47,13 +46,10 @@
                 @Html.DisplayFor(modelItem => item.ContentCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Idmember)
+                @Html.DisplayFor(modelItem => item.MemberName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Revision)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdsnippetPreviousVersions)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateTimeAdded)
@@ -64,7 +60,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.IdcodeSnippet }) |
                     @Html.ActionLink("Details", "Details", new { id=item.IdcodeSnippet }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.IdcodeSnippet  })
+                    @Html.ActionLink("Delete", "Delete", new { id=item.IdcodeSnippet })
             </td>
         </tr>
 }

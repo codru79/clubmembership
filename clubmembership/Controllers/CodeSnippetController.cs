@@ -1,6 +1,7 @@
 ﻿using clubmembership.Data;
 using clubmembership.Models;
 using clubmembership.Repository;
+using clubmembership.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,7 +25,13 @@ namespace clubmembership.Controllers
         public ActionResult Index()
         {
             var list = _codeSnippetRepository.GetAllCodeSnippet();
-            return View(list);
+            var viewmodellist = new List<CodeSnippetViewModel>();
+            foreach (var codesnippet in list)
+            {
+                viewmodellist.Add(new CodeSnippetViewModel(codesnippet, _memberRepository));
+            }
+            
+            return View(viewmodellist);
         }
 
         // GET: CodeSnippetController/Details/5
