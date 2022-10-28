@@ -11,6 +11,8 @@ namespace clubmembership.ViewModels
        // public Guid Idmember { get; set; }
         //adaug MemberName
         public string MemberName { get; set; }
+
+        public List<MemberModel> Members { get; set; }
         public int Revision { get; set; }
         //public Guid? IdsnippetPreviousVersions { get; set; }
 
@@ -32,6 +34,7 @@ namespace clubmembership.ViewModels
             this.IsPublished = model.IsPublished;
             var member = repository.GetMemberbyID(model.Idmember);
             this.MemberName = member.Name;
+            this.Members = repository.GetAllMembers();
         }
     }
 }

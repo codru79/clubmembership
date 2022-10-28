@@ -43,12 +43,12 @@ namespace clubmembership.Controllers
         // GET: CodeSnippetController/Create
         public ActionResult Create()
         {
-            var members = _memberRepository.GetAllMembers();
-            var memberList = members.Select(x => new SelectListItem(x.Name, x.IdMember.ToString()));
-            ViewBag.MemberList = memberList;
-            var model = new CodeSnippetModel();
-            model.IdsnippetPreviousVersions= _codeSnippetRepository.GetLatestCodeSnippet().IdcodeSnippet;
-            return View("CreateCodeSnippet",model);
+            //var members = _memberRepository.GetAllMembers();
+            //var memberList = members.Select(x => new SelectListItem(x.Name, x.IdMember.ToString()));
+            //ViewBag.MemberList = memberList;
+            //viewmodel.IdsnippetPreviousVersions= _codeSnippetRepository.GetLatestCodeSnippet().IdcodeSnippet;
+             var viewmodel = new CodeSnippetViewModel(new CodeSnippetModel(), _memberRepository);
+            return View("CreateCodeSnippet",viewmodel);
         }
 
         // POST: CodeSnippetController/Create
